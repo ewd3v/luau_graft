@@ -1,8 +1,8 @@
-name = "ewdev/package_template"
-version = "0.2.2"
-description = "A template for pesde packages"
+name = "ewdev/hotreload"
+version = "0.0.0"
+description = "Hot reloading for luau"
 authors = ["EwDev (https://ewdev.net/)"]
-repository = "https://github.com/ewd3v/pesde_package_template"
+repository = "https://github.com/ewd3v/luau_hotreload"
 license = "MIT"
 includes = ["src/**", "pesde.toml", "LICENSE", "README.md"]
 
@@ -24,4 +24,3 @@ selene = { name = "pesde/selene", version = "^0.29.0+toolchainlib.1", target = "
 darklua = { name = "pesde/darklua", version = "^0.17.2", target = "lune" }
 
 [dependencies]
-hello = { name = "pesde/hello", version = "^1.0.2" }
