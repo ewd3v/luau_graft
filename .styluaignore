@@ -1,0 +1,9 @@
+# Pesde packages
+*_packages
+.pesde
+
+# Multitarget build output
+dist*
+
+# Type definitions
+types

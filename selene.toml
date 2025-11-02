@@ -1,0 +1,5 @@
+std = "luau"
+exclude = ["*_packages/*", ".pesde/*", "dist*/*", "types/*"]
+
+[config]
+global_usage = { ignore_pattern = "^RUNTIME$" } # Ignore the global value that will be injected by darklua

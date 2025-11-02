@@ -1,0 +1,27 @@
+name = "ewdev/package_template"
+version = "0.2.2"
+description = "A template for pesde packages"
+authors = ["EwDev (https://ewdev.net/)"]
+repository = "https://github.com/ewd3v/pesde_package_template"
+license = "MIT"
+includes = ["src/**", "pesde.toml", "LICENSE", "README.md"]
+
+[engines]
+pesde = "^0.7.1"
+lune = "^0.10.4" # Required for build script even though we're running it via `pesde x`, check https://github.com/pesde-pkg/pesde/issues/51
+
+[target]
+environment = "luau"
+lib = "src/init.luau"
+
+[indices]
+default = "https://github.com/pesde-pkg/index"
+
+[dev_dependencies]
+stylua = { name = "pesde/stylua", version = "^2.3.0", target = "lune" }
+luau-lsp = { name = "pesde/luau_lsp", version = "^1.55.0", target = "lune" }
+selene = { name = "pesde/selene", version = "^0.29.0+toolchainlib.1", target = "lune" }
+darklua = { name = "pesde/darklua", version = "^0.17.2", target = "lune" }
+
+[dependencies]
+hello = { name = "pesde/hello", version = "^1.0.2" }

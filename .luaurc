@@ -1,0 +1,13 @@
+{
+  "languageMode": "strict",
+  "lint": {
+    "*": true
+  },
+  "lintErrors": true,
+  "typeErrors": true,
+  "globals": [],
+  "aliases": {
+    "pkg": "./luau_packages",
+    "luau_pkg": "./luau_packages"
+  }
+}

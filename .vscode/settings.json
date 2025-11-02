@@ -1,0 +1,19 @@
+{
+  "[lua][luau]": {
+    "editor.defaultFormatter": "JohnnyMorganz.stylua",
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": false
+  },
+  "files.readonlyInclude": {
+    "*.lock": true,
+    "*-lock.*": true,
+    "*.lock.*": true,
+    "*_packages/**": true,
+    ".pesde/**": true,
+    "dist*/**": true
+  },
+  "files.eol": "\n",
+  "luau-lsp.types.definitionFiles": ["./types/darklua.d.luau"],
+  "luau-lsp.completion.imports.ignoreGlobs": ["types/**", "**/.pesde/**"],
+  "luau-lsp.ignoreGlobs": ["types/**", "**/.pesde/**"]
+}

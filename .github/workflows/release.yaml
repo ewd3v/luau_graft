@@ -1,0 +1,94 @@
+name: Publish Release
+
+on:
+  push:
+    tags: ["*"]
+
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Publish Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - name: Get version # Transforms v0.1.2 -> 0.1.2, and 0.1.2 -> 0.1.2 (i.e removes the "v" prefix)
+        id: get_version
+        run: |
+          tag=${{ github.ref_name }}
+          echo "version=${tag#"v"}" >> "$GITHUB_OUTPUT"
+
+      - name: Update changelog
+        uses: thomaseizinger/keep-a-changelog-new-release@v3
+        with:
+          tag: ${{ github.ref_name }}
+
+      - name: Bump pesde version
+        uses: DervexDev/file-version-bumper@v1
+        with:
+          path: ./pesde.toml
+          version: ${{ steps.get_version.outputs.version }}
+
+      - name: Setup pesde & update lockfile
+        uses: ewd3v/setup-pesde@v0.1.1 # Runs `pesde install` which will also update lockfile
+        with:
+          pesde_token: ${{ secrets.PESDE_TOKEN || github.token }}
+
+      - name: Commit and push changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "chore: release ${{ github.ref_name }}"
+          default_author: github_actions
+          tag: ${{ github.ref_name }} --force
+          tag_push: --force
+
+      - name: Build package
+        run: ./scripts/build.sh
+
+      - name: Read changelog
+        id: read_changelog
+        uses: mindsers/changelog-reader-action@v2
+        with:
+          version: ${{ steps.get_version.outputs.version }}
+
+      - name: Get previous release
+        id: previous_release
+        run: |
+          rev=$(git rev-list --tags --max-count=1 --skip=1 --no-walk)
+
+          # rev is empty if there is no previous release, so check for that
+          if [ -n ${rev} ]; then
+            tag=$(git describe --tag ${rev})
+
+            echo "rev=${rev}" >> "$GITHUB_OUTPUT"
+            echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body: |
+            # Changelog
+            ${{ steps.read_changelog.outputs.changes }}
+
+            **Full Changelog**: https://github.com/${{ github.repository }}/compare/${{ steps.previous_release.outputs.tag || github.ref_name }}...${{ github.ref_name }}
+          draft: false
+          prerelease: ${{ contains(github.ref_name, 'rc') }} # Checks for example v0.1.2-rc.1 etc, if you use other formats then you should change this
+
+      - name: Publish package to pesde
+        run: |
+          cd dist
+          pesde publish --yes
