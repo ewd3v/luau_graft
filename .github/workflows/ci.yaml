@@ -33,6 +33,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          submodules: true
 
       - name: Setup pesde
         uses: ewd3v/setup-pesde@v0.1.1
@@ -46,6 +48,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          submodules: true
 
       - name: Setup pesde
         uses: ewd3v/setup-pesde@v0.1.1
