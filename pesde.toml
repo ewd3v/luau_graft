@@ -4,7 +4,7 @@ description = "Hot reloading for luau"
 authors = ["EwDev (https://ewdev.net/)"]
 repository = "https://github.com/ewd3v/luau_hotreload"
 license = "MIT"
-includes = ["src/**", "pesde.toml", "LICENSE", "README.md"]
+includes = ["src/**", "pesde.toml", "LICENSE", "README.md", "fiu/Source.lua"]
 
 [engines]
 pesde = "^0.7.1"

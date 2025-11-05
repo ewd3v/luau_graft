@@ -1,7 +1,8 @@
 {
-  "languageMode": "strict",
+  "languageMode": "nonstrict",
   "lint": {
-    "*": true
+    "*": true,
+    "DeprecatedApi": false
   },
   "lintErrors": true,
   "typeErrors": true,

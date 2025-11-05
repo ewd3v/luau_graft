@@ -1,0 +1,4 @@
+[submodule "fiu"]
+	path = fiu
+	url = https://github.com/ewd3v/Fiu
+	branch = call-hook

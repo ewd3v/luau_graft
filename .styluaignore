@@ -7,3 +7,6 @@ dist*
 
 # Type definitions
 types
+
+# Fiu
+fiu
