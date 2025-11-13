@@ -7,5 +7,5 @@ pesde x ewdev/multitarget -- build --yes \
     --luau --roblox # Runtimes to build for
 
 sed -i -e \
-    "s/build_files = \[\"src\"\]/build_files = \[\"src\", \"fiu\/Source.lua\"\]/" \
+    "s/build_files = \[\"src\"\]/build_files = \[\"src\", \"fiu\"\]/" \
     dist/roblox/pesde.toml
